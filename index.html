@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SparkleClean | House Keeping & Cleaning Services</title>
+
+<style>
+:root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --bg: #f8fafc;
+    --white: #fff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #cbd5e1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.navbar {
+    height: 64px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    color: var(--muted);
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.hero {
+    background: linear-gradient(135deg, #0284c7, #0ea5e9);
+    color: white;
+    padding: 40px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    font-size: 16px;
+    opacity: 0.9;
+    max-width: 600px;
+}
+
+.panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-header h2 {
+    font-size: 18px;
+    color: var(--text);
+}
+
+.panel-body {
+    padding: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    align-items: end;
+}
+
+.field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--muted);
+}
+
+.field input,
+.field select {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--primary);
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 11px 18px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.primary-btn:hover {
+    background: var(--primary-dark);
+}
+
+.booking-list {
+    display: grid;
+    gap: 15px;
+    padding: 20px;
+}
+
+.booking-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.booking-info h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.booking-info p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    background: white;
+}
+
+.notice {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #0f172a;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s;
+    z-index: 100;
+}
+
+.notice.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <a href="#" class="brand">✨ SparkleClean</a>
+    <nav class="nav-links">
+        <a href="#book">Book Service</a>
+        <a href="#list">Active Bookings</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <h1>Professional House Keeping & Cleaning</h1>
+        <p>Book verified professionals for general housekeeping, room tidying, kitchen organization, and deep home cleaning packages.</p>
+    </section>
+
+    <!-- Booking Form Panel -->
+    <section class="panel" id="book">
+        <div class="panel-header">
+            <h2>Book a House Keeping Service</h2>
+        </div>
+        <div class="panel-body">
+            <form id="bookingForm" class="form-grid">
+                <div class="field">
+                    <label for="clientName">Your Name</label>
+                    <input id="clientName" placeholder="e.g. Rohit Sharma" required>
+                </div>
+                <div class="field">
+                    <label for="serviceType">Cleaning / Upkeep Package</label>
+                    <select id="serviceType">
+                        <option value="General House Keeping & Tidying">General House Keeping & Tidying (₹599)</option>
+                        <option value="Kitchen Organization & Dishwashing">Kitchen Organization & Dishwashing (₹499)</option>
+                        <option value="Bedroom & Wardrobe Organizing">Bedroom & Wardrobe Organizing (₹699)</option>
+                        <option value="Full Home Maintenance Package">Full Home Maintenance Package (₹1299)</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="clientAddress">Locality / Address</label>
+                    <input id="clientAddress" placeholder="e.g. Shivaji Nagar" required>
+                </div>
+                <div class="field">
+                    <label for="serviceDate">Preferred Date</label>
+                    <input id="serviceDate" type="date" required>
+                </div>
+                <button class="primary-btn" type="submit">Confirm Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Bookings List Panel -->
+    <section class="panel" id="list">
+        <div class="panel-header">
+            <h2>Scheduled Bookings</h2>
+            <span id="bookingCount" style="color:var(--muted); font-size:12px;">Loading...</span>
+        </div>
+        <div class="booking-list" id="bookingList"></div>
+    </section>
+</main>
+
+<footer class="footer">
+    SparkleClean · House Keeping Service Portal (Senior Project)
+</footer>
+
+<div class="notice" id="notice"></div>
+
+<script>
+const API_URL = 'http://localhost:3000/api/bookings';
+
+const bookingList = document.getElementById("bookingList");
+const bookingCount = document.getElementById("bookingCount");
+const bookingForm = document.getElementById("bookingForm");
+const notice = document.getElementById("notice");
+
+function showNotice(message) {
+    notice.textContent = message;
+    notice.classList.add("show");
+    setTimeout(() => notice.classList.remove("show"), 2500);
+}
+
+// Fetch bookings from backend SQLite database
+async function fetchBookings() {
+    try {
+        const res = await fetch(API_URL);
+        const bookings = await res.json();
+        
+        bookingCount.textContent = `${bookings.length} total bookings`;
+        
+        bookingList.innerHTML = bookings.map(b => `
+            <div class="booking-card">
+                <div class="booking-info">
+                    <h3>${b.service}</h3>
+                    <p><strong>Client:</strong> ${b.name} &nbsp;|&nbsp; 📍 ${b.address} &nbsp;|&nbsp; 📅 ${b.date}</p>
+                </div>
+                <div style="text-align: right; display: flex; align-items: center; gap: 12px;">
+                    <div>
+                        <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">₹${b.price}</div>
+                        <span class="status-badge">${b.status}</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <button onclick="toggleStatus(${b.id}, '${b.status}')" style="font-size: 11px; padding: 3px 8px; background: #e0f2fe; border: 1px solid #0284c7; color: #0369a1; border-radius: 4px; cursor: pointer;">Toggle Status</button>
+                        <button onclick="deleteBooking(${b.id})" style="font-size: 11px; padding: 3px 8px; background: #fee2e2; border: 1px solid #ef4444; color: #991b1b; border-radius: 4px; cursor: pointer;">Delete</button>
+                    </div>
+                </div>
+            </div>
+        `).join("");
+    } catch (err) {
+        showNotice("Failed to load bookings from server.");
+    }
+}
+
+// Handle form submission (Create)
+bookingForm.addEventListener("submit", async e => {
+    e.preventDefault();
+    
+    const name = document.getElementById("clientName").value.trim();
+    const service = document.getElementById("serviceType").value;
+    const address = document.getElementById("clientAddress").value.trim();
+    const date = document.getElementById("serviceDate").value;
+    
+    let price = 599;
+    if (service.includes("Kitchen")) price = 499;
+    else if (service.includes("Wardrobe")) price = 699;
+    else if (service.includes("Full Home")) price = 1299;
+
+    const newBooking = { name, service, address, date, price };
+
+    try {
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newBooking)
+        });
+
+        if (!res.ok) throw new Error("Failed to save");
+
+        bookingForm.reset();
+        fetchBookings();
+        showNotice("Housekeeping service booked successfully!");
+    } catch (err) {
+        showNotice("Error submitting booking.");
+    }
+});
+
+// Update Status function
+async function toggleStatus(id, currentStatus) {
+    const nextStatus = currentStatus === 'Pending' ? 'Confirmed' : (currentStatus === 'Confirmed' ? 'Completed' : 'Pending');
+    try {
+        const res = await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: nextStatus })
+        });
+        if (!res.ok) throw new Error("Failed to update");
+        fetchBookings();
+        showNotice(`Status updated to ${nextStatus}`);
+    } catch (err) {
+        showNotice("Error updating status.");
+    }
+}
+
+// Delete Booking function
+async function deleteBooking(id) {
+    if (!confirm("Are you sure you want to delete this booking?")) return;
+    try {
+        const res = await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE'
+        });
+        if (!res.ok) throw new Error("Failed to delete");
+        fetchBookings();
+        showNotice("Booking deleted successfully!");
+    } catch (err) {
+        showNotice("Error deleting booking.");
+    }
+}
+
+// Set minimum date to today
+const dateField = document.getElementById("serviceDate");
+const now = new Date();
+dateField.min = [now.getFullYear(), String(now.getMonth()+1).padStart(2,'0'), String(now.getDate()).padStart(2,'0')].join('-');
+
+// Initial load
+fetchBookings();
+</script>
+
+</body>
+</html>
